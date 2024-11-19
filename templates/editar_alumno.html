@@ -39,4 +39,54 @@
             </div>
         </div>
     </nav>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Carrera</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Fecha de Ingreso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in al %}
+            <tr>
+                <form method="POST" action="{% url 'editar_alumno' %}">
+                    {% csrf_token %}
+                    <td>
+                        <input type="hidden" name="id" value="{{ alumno.id }}">
+                        {{ alumno.id }}
+                    </td>
+                    <td>
+                        <input type="text" name="nombre" class="form-control" value="{{ alumno.nombre }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="carrera" class="form-control" value="{{ alumno.carrera }}" required>
+                    </td>
+                    <td>
+                        <input type="number" name="nota1" class="form-control" value="{{ alumno.nota1 }}" required>
+                    </td>
+                    <td>
+                        <input type="number" name="nota2" class="form-control" value="{{ alumno.nota2 }}" required>
+                    </td>
+                    <td>
+                        <input type="number" name="nota3" class="form-control" value="{{ alumno.nota3 }}" required>
+                    </td>
+                    <td>
+                        <input type="date" name="fecha_ingreso" class="form-control" value="{{ alumno.fecha_ingreso }}" required>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
 </html>
