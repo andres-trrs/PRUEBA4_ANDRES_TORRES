@@ -30,7 +30,7 @@
                         <a class="nav-link" href="#">Editar Alumno</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'eliminar_alumno' %}">Eliminar Alumno</a>
+                        <a class="nav-link" href="#">Eliminar Alumno</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Buscar Alumno</a>
@@ -39,4 +39,37 @@
             </div>
         </div>
     </nav>
+    <div class="container mt-4">
+        {% if al %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Carrera</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alumno in al %}
+                        <tr>
+                            <td>{{ alumno.id }}</td>
+                            <td>{{ alumno.nombre }}</td>
+                            <td>{{ alumno.carrera }}</td>
+                            <td>{{ alumno.nota1 }}</td>
+                            <td>{{ alumno.nota2 }}</td>
+                            <td>{{ alumno.nota3 }}</td>
+                            <td>{{ alumno.fecha_ingreso }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h2>No hay alumnos que mostrar</h2>
+        {% endif %}
+    </div>
 </html>
