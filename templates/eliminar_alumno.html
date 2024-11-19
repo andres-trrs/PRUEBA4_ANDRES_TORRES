@@ -12,15 +12,12 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-custom">
         <div class="container-fluid"> <!-- Contenedor fluido para usar todo el ancho -->
-            <!-- Logo -->
             <a class="navbar-brand p-0 me-3" href="#">
                 <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
             </a>
-            <!-- Toggler para móviles -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Links de navegación -->
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -39,6 +36,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container mt-4">
         {% if al %}
             <table class="table table-striped">
@@ -64,6 +62,16 @@
                             <td>{{ alumno.nota2 }}</td>
                             <td>{{ alumno.nota3 }}</td>
                             <td>{{ alumno.fecha_ingreso }}</td>
+                            <td>
+                                <!-- Formulario de eliminación -->
+                                <form method="POST" action="{% url 'eliminar_alumno' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="alumno_id" value="{{ alumno.id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <span class="text-white">X</span>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -72,4 +80,5 @@
             <h2>No hay alumnos que mostrar</h2>
         {% endif %}
     </div>
+</body>
 </html>
