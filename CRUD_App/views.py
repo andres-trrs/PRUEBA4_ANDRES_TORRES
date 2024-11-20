@@ -7,7 +7,7 @@ def agregar_alumno(request):
         form = AlumnoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('agregar_alumno')
     else:
         form = AlumnoForm()
     return render(request, 'agregar_alumno.html', {'form': form})
