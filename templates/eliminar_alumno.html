@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-custom">
-        <div class="container-fluid"> <!-- Contenedor fluido para usar todo el ancho -->
+        <div class="container-fluid">
             <a class="navbar-brand p-0 me-3" href="#">
                 <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
             </a>
@@ -30,7 +30,7 @@
                         <a class="nav-link" href="{% url 'eliminar_alumno' %}">Eliminar Alumno</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Buscar Alumno</a>
+                        <a class="nav-link" href="{% url 'buscar_alumno' %}">Buscar Alumno</a>
                     </li>
                 </ul>
             </div>
@@ -63,7 +63,6 @@
                             <td>{{ alumno.nota3 }}</td>
                             <td>{{ alumno.fecha_ingreso }}</td>
                             <td>
-                                <!-- Formulario de eliminación -->
                                 <form method="POST" action="{% url 'eliminar_alumno' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="alumno_id" value="{{ alumno.id }}">

@@ -2,15 +2,12 @@ from django.shortcuts import render, redirect
 from .forms import AlumnoForm
 from .models import Alumnos
 
-def index(request):
-    return render(request, 'index.html')
-
 def agregar_alumno(request):
     if request.method == 'POST':
         form = AlumnoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')  # Redirige a la página principal después de agregar el alumno
+            return redirect('index')
     else:
         form = AlumnoForm()
     return render(request, 'agregar_alumno.html', {'form': form})
@@ -21,12 +18,11 @@ def eliminar_alumno(request):
     if request.method == 'POST':
         alumno_id = request.POST.get('alumno_id')
         if alumno_id:
-            # Elimina el alumno de la base de datos
             try:
                 alumno = Alumnos.objects.get(id=alumno_id)
                 alumno.delete()
             except Alumnos.DoesNotExist:
-                pass  # Si no existe el alumno, no hacemos nada (se podría agregar un mensaje de error)
+                pass 
             return redirect('eliminar_alumno') 
     return render (request, 'eliminar_alumno.html', data)
 
@@ -35,7 +31,6 @@ def editar_alumno(request):
         alumno_id = request.POST.get('id')
         alumno = Alumnos.objects.get(id=alumno_id)
 
-        # Actualiza los datos
         alumno.nombre = request.POST.get('nombre')
         alumno.carrera = request.POST.get('carrera')
         alumno.nota1 = request.POST.get('nota1')
@@ -44,8 +39,16 @@ def editar_alumno(request):
         alumno.fecha_ingreso = request.POST.get('fecha_ingreso')
         alumno.save()
 
-        # Redirige a la misma página después de guardar los cambios
         return redirect('editar_alumno')
 
     alumnos = Alumnos.objects.all()
     return render(request, 'editar_alumno.html', {'al': alumnos})
+
+def buscar_alumno(request):
+    query = request.GET.get('q', '') 
+    if query:
+        alumnos = Alumnos.objects.filter(nombre__icontains=query)  
+    else:
+        alumnos = Alumnos.objects.all() 
+
+    return render(request, 'buscar_alumno.html', {'alumnos': alumnos})

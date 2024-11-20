@@ -11,16 +11,13 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-custom">
-        <div class="container-fluid"> <!-- Contenedor fluido para usar todo el ancho -->
-            <!-- Logo -->
+        <div class="container-fluid">
             <a class="navbar-brand p-0 me-3" href="#">
                 <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
             </a>
-            <!-- Toggler para móviles -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Links de navegación -->
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -33,7 +30,7 @@
                         <a class="nav-link" href="{% url 'eliminar_alumno' %}">Eliminar Alumno</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Buscar Alumno</a>
+                        <a class="nav-link" href="{% url 'buscar_alumno' %}">Buscar Alumno</a>
                     </li>
                 </ul>
             </div>
