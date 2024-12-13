@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
 from .models import Cliente
-from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -31,7 +30,8 @@ def admin_page(request):
 def user_page(request):
     if not request.user.is_authenticated:
         return redirect('login') 
-    return render(request, 'user.html')
+    clientes = Cliente.objects.all() 
+    return render(request, 'user.html', {'clientes': clientes})
 
 
 def agregar_cliente(request):
@@ -72,3 +72,12 @@ def admin_eliminar(request):
             return redirect('admin_eliminar')
 
     return render(request, 'admin_eliminar.html', {'clientes': clientes})
+
+def user_buscar(request):
+    if not request.user.is_authenticated:
+        return redirect('login') 
+    search = request.GET.get('search', '')
+    clientes = []
+    if search:
+        clientes = Cliente.objects.filter(nombre__icontains=search) | Cliente.objects.filter(id__icontains=search)
+    return render(request, 'user_buscar.html', {'clientes': clientes, 'search': search})
