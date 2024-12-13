@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
 from .models import Cliente
 from django.contrib.auth.decorators import user_passes_test
@@ -59,3 +59,16 @@ def admin_buscar(request):
     if search:
         clientes = Cliente.objects.filter(nombre__icontains=search) | Cliente.objects.filter(id__icontains=search)
     return render(request, 'admin_buscar.html', {'clientes': clientes, 'search': search})
+
+def admin_eliminar(request):
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('login')
+    clientes = Cliente.objects.all() 
+    if request.method == "POST":
+        cliente_id = request.POST.get('cliente_id')
+        if cliente_id:
+            cliente = get_object_or_404(Cliente, id=cliente_id)
+            cliente.delete()  
+            return redirect('admin_eliminar')
+
+    return render(request, 'admin_eliminar.html', {'clientes': clientes})

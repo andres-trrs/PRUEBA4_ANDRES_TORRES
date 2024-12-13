@@ -10,16 +10,28 @@
     <title>Listado de Clientes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #e4e4e4;
+            padding-top: 120px;
+            padding-bottom: 80px; 
         }
+
         .container {
             width: 80%;
             margin: auto;
             padding: 20px;
+            padding-top: 40px; 
         }
+
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
         h1 {
             text-align: center;
             color: #333;
@@ -79,7 +91,7 @@
                         <a class="nav-link" href="{% url 'admin_page' %}">Agregar Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Eliminar Clientes</a>
+                        <a class="nav-link" href="{% url 'admin_eliminar' %}">Eliminar Clientes</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-danger cerrar-sesion ms-3" href="{% url 'login' %}">Cerrar Sesión</a>
